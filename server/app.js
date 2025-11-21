@@ -22,22 +22,7 @@ const connectDB = async () => {
         });
         console.log('Connect DB succeed !');
         
-        // Initialize after connection
-        const Vocab = require('./api/models/vocabModel');
-        const indexes = await Vocab.collection.getIndexes();
-        console.log('Current indexes:', Object.keys(indexes));
-        
-        for (const indexName of Object.keys(indexes)) {
-            if (indexName.includes('english') || indexName.includes('german') || indexName.includes('_1')) {
-                try {
-                    await Vocab.collection.dropIndex(indexName);
-                    console.log(`Dropped index: ${indexName}`);
-                } catch (err) {
-                    console.log(`Could not drop index ${indexName}:`, err.message);
-                }
-            }
-        }
-        
+        // Initialize default languages
         const { initializeDefaultLanguages } = require('./api/controllers/languageController');
         console.log('Initializing default languages...');
         await initializeDefaultLanguages();
