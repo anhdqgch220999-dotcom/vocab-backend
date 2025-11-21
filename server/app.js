@@ -10,42 +10,52 @@ app.use(express.urlencoded({ extended: true }))
 
 const mongoose = require('mongoose')
 const db = process.env.MONGODB_URI || "mongodb://localhost:27017/vocab-builder";
-mongoose.connect(db, {
-    serverSelectionTimeoutMS: 10000,
-    socketTimeoutMS: 45000,
-})
-    .then(async () => {
+
+// MongoDB connection with retry
+const connectDB = async () => {
+    try {
+        await mongoose.connect(db, {
+            serverSelectionTimeoutMS: 15000,
+            socketTimeoutMS: 45000,
+            retryWrites: true,
+            w: 'majority'
+        });
         console.log('Connect DB succeed !');
         
-        // Fix duplicate index issue - drop old indexes
-        try {
-            const Vocab = require('./api/models/vocabModel');
-            const indexes = await Vocab.collection.getIndexes();
-            console.log('Current indexes:', Object.keys(indexes));
-            
-            // Drop indexes that might cause duplicate key errors
-            for (const indexName of Object.keys(indexes)) {
-                if (indexName.includes('english') || indexName.includes('german') || indexName.includes('_1')) {
+        // Initialize after connection
+        const Vocab = require('./api/models/vocabModel');
+        const indexes = await Vocab.collection.getIndexes();
+        console.log('Current indexes:', Object.keys(indexes));
+        
+        for (const indexName of Object.keys(indexes)) {
+            if (indexName.includes('english') || indexName.includes('german') || indexName.includes('_1')) {
                 try {
                     await Vocab.collection.dropIndex(indexName);
                     console.log(`Dropped index: ${indexName}`);
                 } catch (err) {
                     console.log(`Could not drop index ${indexName}:`, err.message);
                 }
-                }
             }
-        } catch (err) {
-            console.log('Index cleanup skipped:', err.message);
         }
         
-        // Initialize default languages after DB connection
         const { initializeDefaultLanguages } = require('./api/controllers/languageController');
         console.log('Initializing default languages...');
-        initializeDefaultLanguages().then(() => {
-            console.log('Languages initialization complete');
-        }).catch(err => console.error('Languages initialization error:', err));
-    })
-    .catch(err => console.log('Connect db failed ! ' + err))
+        await initializeDefaultLanguages();
+        console.log('Languages initialization complete');
+    } catch (err) {
+        console.error('Connect db failed !', err.message);
+        console.log('Retrying in 5 seconds...');
+        setTimeout(connectDB, 5000);
+    }
+};
+
+connectDB();
+
+// Handle connection events
+mongoose.connection.on('disconnected', () => {
+    console.warn('MongoDB disconnected, attempting to reconnect...');
+    setTimeout(connectDB, 5000);
+});
 
 // Routes
 const vocabRouter = require("./api/routes/vocabRoute")
