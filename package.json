@@ -1,0 +1,14 @@
+{
+  "name": "vocab-builder",
+  "version": "1.0.0",
+  "description": "Vocabulary Builder - Learn languages through vocabulary",
+  "private": true,
+  "scripts": {
+    "install-all": "cd server && npm install && cd ../client && npm install",
+    "dev": "cd server && npm start & cd client && npm run dev",
+    "start": "cd server && npm start"
+  },
+  "keywords": ["vocab", "builder", "languages"],
+  "author": "",
+  "license": "ISC"
+}
