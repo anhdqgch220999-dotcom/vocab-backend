@@ -1,0 +1,8 @@
+server/
+.git/
+node_modules/
+.env
+.env.local
+.gitignore
+render.yaml
+Procfile
