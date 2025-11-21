@@ -57,6 +57,11 @@ userRouter(app)
 quizRouter(app)
 app.use('/api/languages', languageRouter)
 
+// Health check endpoint
+app.get('/', (req, res) => {
+   res.json({ message: 'Vocabulary Builder API is running', status: 'ok' })
+})
+
 const port = process.env.PORT || 3001
 
 app.listen(port, () => {
