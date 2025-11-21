@@ -10,7 +10,10 @@ app.use(express.urlencoded({ extended: true }))
 
 const mongoose = require('mongoose')
 const db = process.env.MONGODB_URI || "mongodb://localhost:27017/vocab-builder";
-mongoose.connect(db)
+mongoose.connect(db, {
+    serverSelectionTimeoutMS: 10000,
+    socketTimeoutMS: 45000,
+})
     .then(async () => {
         console.log('Connect DB succeed !');
         
