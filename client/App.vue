@@ -94,16 +94,30 @@ export default {
 
 .navbar-content {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   width: 100%;
+  position: relative;
+}
+
+.navbar-content > .ui.menu {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  margin: 0 !important;
+}
+
+.navbar-content > .ui.menu > .item {
+  padding: 0.92857143em 1.14285714em !important;
+  font-size: 15px;
 }
 
 .user-section {
   display: flex;
   align-items: center;
   gap: 15px;
-  margin-left: auto;
+  position: absolute;
+  right: 0;
 }
 
 .user-greeting {
@@ -112,6 +126,7 @@ export default {
   display: flex;
   align-items: center;
   gap: 5px;
+  white-space: nowrap;
 }
 
 .user-greeting i {
@@ -121,6 +136,7 @@ export default {
 .logout-btn {
   padding: 8px 12px !important;
   font-size: 12px !important;
+  white-space: nowrap;
 }
 
 .logout-btn:hover {
