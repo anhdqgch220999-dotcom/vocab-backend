@@ -2,8 +2,46 @@
   <div class="matching-container">
     <h1>Word Matching Game</h1>
     
+    <!-- Game Setup (before game starts) -->
+    <div v-if="gameStatus === 'setup'" class="setup-section">
+      <div class="ui form">
+        <div class="three fields">
+          <div class="field">
+            <label>Column 1 Language</label>
+            <select v-model="language1" class="ui dropdown">
+              <option v-for="lang in availableLanguages" :key="lang.code" :value="lang.code">
+                {{ lang.name }}
+              </option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Column 2 Language</label>
+            <select v-model="language2" class="ui dropdown">
+              <option v-for="lang in availableLanguages" :key="lang.code" :value="lang.code">
+                {{ lang.name }}
+              </option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Number of Words</label>
+            <select v-model.number="numWords" class="ui dropdown">
+              <option value="4">4 words</option>
+              <option value="5">5 words</option>
+              <option value="6">6 words</option>
+              <option value="8">8 words</option>
+              <option value="10">10 words</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <button @click="startGame" class="ui primary button" style="margin-top: 20px;">
+        Start Game
+      </button>
+      <router-link to="/words" class="ui button" style="margin-left: 10px;">Back to Words</router-link>
+    </div>
+
     <!-- Game Stats -->
-    <div class="stats">
+    <div v-if="gameStatus === 'playing'" class="stats">
       <div class="stat-item">
         <i class="clock outline icon"></i>
         <span>Time: {{ formatTime(timeRemaining) }}</span>
@@ -73,12 +111,12 @@
       <h2>Game Over!</h2>
       <p class="final-score">Final Score: {{ score }}</p>
       <p class="matches-text">You matched {{ correctMatches }}/{{ totalPairs }} pairs</p>
-      <button @click="startNewGame" class="ui primary button">Play Again</button>
+      <button @click="resetGame" class="ui primary button">Play Again</button>
       <router-link to="/words" class="ui button">Back to Words</router-link>
     </div>
 
     <!-- Back button -->
-    <div v-if="gameStatus !== 'finished'" style="margin-top: 20px;">
+    <div v-if="gameStatus !== 'finished' && gameStatus !== 'setup'" style="margin-top: 20px;">
       <router-link to="/words" class="ui button">Back to Words</router-link>
     </div>
   </div>
@@ -95,8 +133,9 @@ export default {
     const availableLanguages = ref([]);
     const language1 = ref('en');
     const language2 = ref('vn');
+    const numWords = ref(10);
     
-    const gameStatus = ref('loading');
+    const gameStatus = ref('setup');
     const selectedLeft = ref(null);
     const selectedRight = ref(null);
     const correctMatches = ref(0);
@@ -136,6 +175,43 @@ export default {
     const getLanguageFlag = (langCode) => {
       const lang = availableLanguages.value.find(l => l.code === langCode);
       return lang ? lang.flag : '';
+    };
+
+    // Fetch available languages
+    const fetchLanguages = async () => {
+      try {
+        const langResponse = await getActiveLanguages();
+        if (langResponse && langResponse.languages) {
+          availableLanguages.value = langResponse.languages;
+        }
+      } catch (error) {
+        console.error('Error fetching languages:', error);
+        availableLanguages.value = [
+          { code: 'en', name: 'English', flag: 'us' },
+          { code: 'vn', name: 'Vietnamese', flag: 'vn' },
+          { code: 'de', name: 'German', flag: 'de' },
+          { code: 'fr', name: 'French', flag: 'fr' }
+        ];
+      }
+    };
+
+    // Start game
+    const startGame = async () => {
+      gameStatus.value = 'loading';
+      await loadGame();
+    };
+
+    // Reset game to setup screen
+    const resetGame = () => {
+      selectedLeft.value = null;
+      selectedRight.value = null;
+      correctMatches.value = 0;
+      score.value = 0;
+      timeRemaining.value = 180;
+      matchedPairs.value = new Set();
+      rightColumnShuffled.value = [];
+      words.value = [];
+      gameStatus.value = 'setup';
     };
 
     // Select item
@@ -189,11 +265,6 @@ export default {
       try {
         gameStatus.value = 'loading';
         
-        const langResponse = await getActiveLanguages();
-        if (langResponse && langResponse.languages) {
-          availableLanguages.value = langResponse.languages;
-        }
-
         const response = await viewAllWords();
         const wordList = response?.vocabs || response || [];
         
@@ -208,7 +279,7 @@ export default {
             word.translations[language1.value] &&
             word.translations[language2.value]
           )
-          .slice(0, 10);
+          .slice(0, numWords.value);
 
         console.log('Filtered words for matching:', filteredWords.length);
         if (filteredWords.length > 0) {
@@ -217,19 +288,20 @@ export default {
 
         if (filteredWords.length >= 4) {
           words.value = filteredWords;
-          // Shuffle ALL words for right column, not just half
+          // Shuffle ALL words for right column
           rightColumnShuffled.value = shuffleArray([...filteredWords]);
           console.log('Left column:', filteredWords.map(w => w.translations[language1.value]));
           console.log('Right column:', rightColumnShuffled.value.map(w => w.translations[language2.value]));
           gameStatus.value = 'playing';
           startTimer();
         } else {
-          console.error('Not enough words:', filteredWords.length);
-          gameStatus.value = 'finished';
+          console.error('Not enough words with both languages:', filteredWords.length);
+          alert(`Not enough words. Found ${filteredWords.length} words with both ${language1.value.toUpperCase()} and ${language2.value.toUpperCase()}`);
+          gameStatus.value = 'setup';
         }
       } catch (error) {
         console.error('Error loading game:', error);
-        gameStatus.value = 'finished';
+        gameStatus.value = 'setup';
       }
     };
 
@@ -262,7 +334,7 @@ export default {
     };
 
     onMounted(() => {
-      loadGame();
+      fetchLanguages();
     });
 
     onUnmounted(() => {
@@ -274,6 +346,7 @@ export default {
       availableLanguages,
       language1,
       language2,
+      numWords,
       gameStatus,
       selectedLeft,
       selectedRight,
@@ -288,7 +361,9 @@ export default {
       getLanguageName,
       getLanguageFlag,
       formatTime,
-      startNewGame
+      startGame,
+      resetGame,
+      fetchLanguages
     };
   }
 };
@@ -299,6 +374,20 @@ export default {
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
+}
+
+.setup-section {
+  background: #f9f9f9;
+  padding: 30px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.setup-section .form {
+  background: white;
+  padding: 20px;
+  border-radius: 4px;
+  margin-bottom: 20px;
 }
 
 .stats {
