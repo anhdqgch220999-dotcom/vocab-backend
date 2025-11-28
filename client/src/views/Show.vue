@@ -2,10 +2,10 @@
     <div>
         <h1>Show Word</h1>
         <div 
-          v-for="lang in usedLanguages" 
-          :key="lang.code"
-          class="ui labeled input fluid"
-          style="margin-bottom: 15px;"
+            v-for="lang in usedLanguages" 
+            :key="lang.code"
+            class="ui labeled input fluid"
+            style="margin-bottom: 15px;"
         >
             <div class="ui label">
                 <i :class="`${lang.flag} flag`"></i>
@@ -38,7 +38,7 @@ export default {
         const fetchLanguages = async () => {
             try {
                 const response = await getActiveLanguages();
-                if (response && response.success) {
+                if (response && response.languages) {
                     availableLanguages.value = response.languages;
                 }
             } catch (error) {
@@ -46,7 +46,7 @@ export default {
                 // Fallback to default languages
                 availableLanguages.value = [
                     { code: 'en', name: 'English', flag: 'us' },
-                    { code: 'de', name: 'German', flag: 'de' }
+                    { code: 'vi', name: 'Vietnamese', flag: 'vn' }
                 ];
             }
         };
@@ -54,7 +54,8 @@ export default {
         // Smart detection of used languages for this word
         const usedLanguages = computed(() => {
             if (!word.value || Object.keys(word.value).length === 0) {
-                return availableLanguages.value.slice(0, 2); // Default: English + German
+                // Default: English + Vietnamese
+                return availableLanguages.value.filter(lang => lang.code === 'en' || lang.code === 'vi').slice(0, 2);
             }
 
             const languageCodes = new Set();
@@ -81,10 +82,10 @@ export default {
                 .filter(Boolean) // Remove undefined values
                 .sort((a, b) => a.name.localeCompare(b.name));
 
-            // Ensure we have at least English if no languages detected
+            // Ensure we have at least English + Vietnamese if no languages detected
             if (usedLangs.length === 0) {
-                const english = availableLanguages.value.find(lang => lang.code === 'en');
-                return english ? [english] : [];
+                const defaultLangs = availableLanguages.value.filter(lang => lang.code === 'en' || lang.code === 'vi');
+                return defaultLangs.length > 0 ? defaultLangs : availableLanguages.value.slice(0, 2);
             }
 
             return usedLangs;

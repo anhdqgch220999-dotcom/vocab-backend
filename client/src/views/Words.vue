@@ -80,28 +80,25 @@ export default {
     const words = ref([]);
     const availableLanguages = ref([]);
     const selectedLanguage1 = ref('en');
-    const selectedLanguage2 = ref('de');
+    const selectedLanguage2 = ref('vi');
 
     // Get available languages
     const fetchLanguages = async () => {
       try {
         const response = await getActiveLanguages();
         if (response && response.languages) {
-          availableLanguages.value = response.languages;
-          // Set default selections
-          if (availableLanguages.value.length >= 1) {
-            selectedLanguage1.value = availableLanguages.value[0].code;
-          }
-          if (availableLanguages.value.length >= 2) {
-            selectedLanguage2.value = availableLanguages.value[1].code;
-          }
+          // Sort languages by name to ensure consistent order
+          availableLanguages.value = response.languages.sort((a, b) => a.name.localeCompare(b.name));
+          // Always set default selections to English + Vietnamese
+          selectedLanguage1.value = 'en';
+          selectedLanguage2.value = 'vi';
         }
       } catch (error) {
         console.error('Error fetching languages:', error);
         // Fallback to default languages
         availableLanguages.value = [
           { code: 'en', name: 'English', flag: 'us' },
-          { code: 'de', name: 'German', flag: 'de' }
+          { code: 'vi', name: 'Vietnamese', flag: 'vn' }
         ];
       }
     };
