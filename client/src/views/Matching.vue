@@ -5,10 +5,10 @@
     <!-- Game Setup (before game starts) -->
     <div v-if="gameStatus === 'setup'" class="setup-section">
       <div class="ui form">
-        <div class="three fields">
+        <div class="two fields">
           <div class="field">
             <label>Column 1 Language</label>
-            <select v-model="language1" class="ui dropdown">
+            <select v-model="language1" class="ui dropdown compact">
               <option v-for="lang in availableLanguages" :key="lang.code" :value="lang.code">
                 {{ lang.name }}
               </option>
@@ -16,22 +16,22 @@
           </div>
           <div class="field">
             <label>Column 2 Language</label>
-            <select v-model="language2" class="ui dropdown">
+            <select v-model="language2" class="ui dropdown compact">
               <option v-for="lang in availableLanguages" :key="lang.code" :value="lang.code">
                 {{ lang.name }}
               </option>
             </select>
           </div>
-          <div class="field">
-            <label>Number of Words</label>
-            <select v-model.number="numWords" class="ui dropdown">
-              <option value="4">4 words</option>
-              <option value="5">5 words</option>
-              <option value="6">6 words</option>
-              <option value="8">8 words</option>
-              <option value="10">10 words</option>
-            </select>
-          </div>
+        </div>
+        <div class="one field">
+          <label>Number of Words</label>
+          <select v-model.number="numWords" class="ui dropdown compact" style="width: 150px;">
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="8">8</option>
+            <option value="10">10</option>
+          </select>
         </div>
       </div>
       <button @click="startGame" class="ui primary button" style="margin-top: 20px;">
@@ -388,6 +388,38 @@ export default {
   padding: 20px;
   border-radius: 4px;
   margin-bottom: 20px;
+}
+
+.setup-section .fields {
+  display: flex !important;
+  gap: 20px !important;
+  align-items: flex-end;
+}
+
+.setup-section .field {
+  flex: 1;
+}
+
+.setup-section .field:last-child {
+  flex: 0 0 auto;
+}
+
+.setup-section select.compact {
+  width: 100% !important;
+  padding: 8px 12px !important;
+  font-size: 14px !important;
+}
+
+.setup-section .ui.dropdown.compact {
+  padding: 0.5em 1em !important;
+  font-size: 14px !important;
+}
+
+.setup-section label {
+  font-size: 13px !important;
+  font-weight: 600;
+  display: block;
+  margin-bottom: 5px;
 }
 
 .stats {

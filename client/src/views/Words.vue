@@ -3,24 +3,22 @@
     <h1>Word List</h1>
     
     <!-- Language Selection Dropdowns -->
-    <div class="ui form" style="margin-bottom: 20px;">
-      <div class="two fields">
-        <div class="field">
-          <label>Column 1 Language</label>
-          <select v-model="selectedLanguage1" class="ui dropdown">
-            <option v-for="lang in availableLanguages" :key="lang.code" :value="lang.code">
-              {{ lang.name }}
-            </option>
-          </select>
-        </div>
-        <div class="field">
-          <label>Column 2 Language</label>
-          <select v-model="selectedLanguage2" class="ui dropdown">
-            <option v-for="lang in availableLanguages" :key="lang.code" :value="lang.code">
-              {{ lang.name }}
-            </option>
-          </select>
-        </div>
+    <div class="language-selector">
+      <div class="lang-field">
+        <label>Column 1 Language</label>
+        <select v-model="selectedLanguage1" class="ui dropdown compact">
+          <option v-for="lang in availableLanguages" :key="lang.code" :value="lang.code">
+            {{ lang.name }}
+          </option>
+        </select>
+      </div>
+      <div class="lang-field">
+        <label>Column 2 Language</label>
+        <select v-model="selectedLanguage2" class="ui dropdown compact">
+          <option v-for="lang in availableLanguages" :key="lang.code" :value="lang.code">
+            {{ lang.name }}
+          </option>
+        </select>
       </div>
     </div>
 
@@ -173,3 +171,35 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.language-selector {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+  align-items: flex-end;
+}
+
+.lang-field {
+  flex: 0 0 auto;
+  min-width: 200px;
+}
+
+.lang-field label {
+  font-size: 13px !important;
+  font-weight: 600;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.lang-field select.compact {
+  width: 100% !important;
+  padding: 8px 12px !important;
+  font-size: 14px !important;
+}
+
+.ui.dropdown.compact {
+  padding: 0.5em 1em !important;
+  font-size: 14px !important;
+}
+</style>
