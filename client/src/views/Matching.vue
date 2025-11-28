@@ -45,10 +45,10 @@
             @click="selectItem('left', index)"
             :class="['word-box', { 
               selected: selectedLeft === index,
-              matched: matchedPairs.has(item.word._id)
+              matched: matchedPairs.has(item._id)
             }]"
           >
-            {{ item.word.translations[language1] }}
+            {{ item.translations[language1] }}
           </div>
         </div>
 
@@ -60,10 +60,10 @@
             @click="selectItem('right', index)"
             :class="['word-box', { 
               selected: selectedRight === index,
-              matched: matchedPairs.has(item.word._id)
+              matched: matchedPairs.has(item._id)
             }]"
           >
-            {{ item.word.translations[language2] }}
+            {{ item.translations[language2] }}
           </div>
         </div>
       </div>
@@ -101,12 +101,20 @@ export default {
     const selectedRight = ref(null);
     const correctMatches = ref(0);
     const score = ref(0);
-    const timeRemaining = ref(180); // 3 minutes
+    const timeRemaining = ref(180);
     const matchedPairs = ref(new Set());
+    const rightColumnShuffled = ref([]);
     let gameTimer = null;
 
+    const leftColumn = computed(() => {
+      return words.value.slice(0, Math.ceil(words.value.length / 2));
+    });
+
+    const rightColumn = computed(() => {
+      return rightColumnShuffled.value;
+    });
+
     const totalPairs = computed(() => leftColumn.value.length);
-    const gameFinished = computed(() => correctMatches.value === totalPairs.value);
 
     // Shuffle array
     const shuffleArray = (array) => {
@@ -117,16 +125,6 @@ export default {
       }
       return shuffled;
     };
-
-    // Split words into two columns
-    const leftColumn = computed(() => {
-      return words.value.slice(0, Math.ceil(words.value.length / 2));
-    });
-
-    const rightColumn = computed(() => {
-      const rightItems = words.value.slice(Math.ceil(words.value.length / 2));
-      return shuffleArray(rightItems);
-    });
 
     // Get language name
     const getLanguageName = (langCode) => {
@@ -142,13 +140,11 @@ export default {
 
     // Select item
     const selectItem = (side, index) => {
-      // If already matched, ignore
-      if (side === 'left' && matchedPairs.value.has(leftColumn.value[index].word._id)) return;
-      if (side === 'right' && matchedPairs.value.has(rightColumn.value[index].word._id)) return;
-
       if (side === 'left') {
+        if (matchedPairs.value.has(leftColumn.value[index]._id)) return;
         selectedLeft.value = selectedLeft.value === index ? null : index;
       } else {
+        if (matchedPairs.value.has(rightColumn.value[index]._id)) return;
         selectedRight.value = selectedRight.value === index ? null : index;
       }
 
@@ -163,19 +159,17 @@ export default {
       const leftWord = leftColumn.value[selectedLeft.value];
       const rightWord = rightColumn.value[selectedRight.value];
 
-      if (leftWord && rightWord && leftWord.word._id === rightWord.word._id) {
-        // Correct match!
+      if (leftWord && rightWord && leftWord._id === rightWord._id) {
         correctMatches.value++;
         score.value += 10;
-        matchedPairs.value.add(leftWord.word._id);
+        matchedPairs.value.add(leftWord._id);
         selectedLeft.value = null;
         selectedRight.value = null;
 
-        if (gameFinished.value) {
+        if (correctMatches.value === totalPairs.value) {
           endGame();
         }
       } else {
-        // Wrong match, reset after delay
         setTimeout(() => {
           selectedLeft.value = null;
           selectedRight.value = null;
@@ -195,26 +189,26 @@ export default {
       try {
         gameStatus.value = 'loading';
         
-        // Fetch languages
         const langResponse = await getActiveLanguages();
         if (langResponse && langResponse.languages) {
           availableLanguages.value = langResponse.languages;
         }
 
-        // Fetch words
         const response = await viewAllWords();
         const wordList = response?.vocabs || response || [];
         
-        // Filter words that have both language1 and language2 translations
-        words.value = wordList
+        const filteredWords = wordList
           .filter(word => 
             word.translations &&
             word.translations[language1.value] &&
             word.translations[language2.value]
           )
-          .slice(0, 10); // Take first 10 words for game
+          .slice(0, 10);
 
-        if (words.value.length >= 5) {
+        if (filteredWords.length >= 4) {
+          words.value = filteredWords;
+          const rightItems = filteredWords.slice(Math.ceil(filteredWords.length / 2));
+          rightColumnShuffled.value = shuffleArray(rightItems);
           gameStatus.value = 'playing';
           startTimer();
         } else {
@@ -250,6 +244,7 @@ export default {
       score.value = 0;
       timeRemaining.value = 180;
       matchedPairs.value = new Set();
+      rightColumnShuffled.value = [];
       loadGame();
     };
 
