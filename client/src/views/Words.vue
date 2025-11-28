@@ -128,6 +128,10 @@ export default {
       console.log('Words component mounted');
       await fetchLanguages();
       console.log('Languages fetched:', availableLanguages.value.length);
+      console.log('Available languages:', availableLanguages.value);
+      console.log('Selected language 1:', selectedLanguage1.value);
+      console.log('Selected language 2:', selectedLanguage2.value);
+      
       try {
         const response = await viewAllWords();
         console.log('Full response:', response);
