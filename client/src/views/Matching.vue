@@ -107,7 +107,7 @@ export default {
     let gameTimer = null;
 
     const leftColumn = computed(() => {
-      return words.value.slice(0, Math.ceil(words.value.length / 2));
+      return words.value;
     });
 
     const rightColumn = computed(() => {
@@ -197,6 +197,11 @@ export default {
         const response = await viewAllWords();
         const wordList = response?.vocabs || response || [];
         
+        console.log('Total words from API:', wordList.length);
+        if (wordList.length > 0) {
+          console.log('First word structure:', wordList[0]);
+        }
+        
         const filteredWords = wordList
           .filter(word => 
             word.translations &&
@@ -205,13 +210,21 @@ export default {
           )
           .slice(0, 10);
 
+        console.log('Filtered words for matching:', filteredWords.length);
+        if (filteredWords.length > 0) {
+          console.log('First filtered word:', filteredWords[0]);
+        }
+
         if (filteredWords.length >= 4) {
           words.value = filteredWords;
-          const rightItems = filteredWords.slice(Math.ceil(filteredWords.length / 2));
-          rightColumnShuffled.value = shuffleArray(rightItems);
+          // Shuffle ALL words for right column, not just half
+          rightColumnShuffled.value = shuffleArray([...filteredWords]);
+          console.log('Left column:', filteredWords.map(w => w.translations[language1.value]));
+          console.log('Right column:', rightColumnShuffled.value.map(w => w.translations[language2.value]));
           gameStatus.value = 'playing';
           startTimer();
         } else {
+          console.error('Not enough words:', filteredWords.length);
           gameStatus.value = 'finished';
         }
       } catch (error) {
