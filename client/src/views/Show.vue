@@ -46,7 +46,7 @@ export default {
                 // Fallback to default languages
                 availableLanguages.value = [
                     { code: 'en', name: 'English', flag: 'us' },
-                    { code: 'vi', name: 'Vietnamese', flag: 'vn' }
+                    { code: 'vn', name: 'Vietnamese', flag: 'vn' }
                 ];
             }
         };
@@ -55,7 +55,7 @@ export default {
         const usedLanguages = computed(() => {
             if (!word.value || Object.keys(word.value).length === 0) {
                 // Default: English + Vietnamese
-                return availableLanguages.value.filter(lang => lang.code === 'en' || lang.code === 'vi').slice(0, 2);
+                return availableLanguages.value.filter(lang => lang.code === 'en' || lang.code === 'vn').slice(0, 2);
             }
 
             const languageCodes = new Set();
@@ -84,7 +84,7 @@ export default {
 
             // Ensure we have at least English + Vietnamese if no languages detected
             if (usedLangs.length === 0) {
-                const defaultLangs = availableLanguages.value.filter(lang => lang.code === 'en' || lang.code === 'vi');
+                const defaultLangs = availableLanguages.value.filter(lang => lang.code === 'en' || lang.code === 'vn');
                 return defaultLangs.length > 0 ? defaultLangs : availableLanguages.value.slice(0, 2);
             }
 
