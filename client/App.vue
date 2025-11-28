@@ -14,6 +14,9 @@
               <router-link to="/quiz" class="item">
                 <i class="question circle icon"></i>Quiz
               </router-link>
+              <router-link to="/matching" class="item">
+                <i class="handshake outline icon"></i>Matching
+              </router-link>
               
               <router-link v-if="authStore.user?.role === 'admin'" to="/admin/users" class="item">
                 Manage Users

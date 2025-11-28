@@ -14,6 +14,7 @@ import QuizTaking from './src/views/QuizTaking.vue'
 import QuizResult from './src/views/QuizResult.vue'
 import QuizHistory from './src/views/QuizHistory.vue'
 import QuizDetail from './src/views/QuizDetail.vue'
+import Matching from './src/views/Matching.vue'
 
 const routes = [
    {
@@ -96,6 +97,12 @@ const routes = [
       path: '/quiz/detail/:id',
       name: 'QuizDetail',
       component: QuizDetail,
+      meta: { requiresAuth: true }
+   },
+   {
+      path: '/matching',
+      name: 'Matching',
+      component: Matching,
       meta: { requiresAuth: true }
    }
 ]
