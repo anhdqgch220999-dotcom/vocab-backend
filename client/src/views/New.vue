@@ -1,79 +1,87 @@
 <template>
-  <div>
-    <h1>New Word</h1>
-    
-    <form @submit.prevent="onSubmit">
-      <!-- First language input -->
-      <div class="ui labeled input fluid" style="margin-bottom: 15px;">
-        <div 
-          class="ui label language-selector"
-          @click="openLanguageSelector(0)"
-          style="cursor: pointer;"
-          :title="'Click to change language'"
-        >
-          <i :class="`${getLanguageByCode(selectedLanguages[0]).flag} flag`"></i> 
-          {{ getLanguageByCode(selectedLanguages[0]).name }}
-          <i class="dropdown icon" style="margin-left: 5px;"></i>
-        </div>
-        <input 
-          type="text" 
-          required
-          v-model="word.translations[selectedLanguages[0]]" 
-          :placeholder="`Enter ${getLanguageByCode(selectedLanguages[0]).name} word`"
-        />
-      </div>
+  <div class="new-page">
+    <div class="page-container">
+      <h1>New Word</h1>
       
-      <!-- Second language input -->
-      <div class="ui labeled input fluid" style="margin-bottom: 15px;">
-        <div 
-          class="ui label language-selector"
-          @click="openLanguageSelector(1)"
-          style="cursor: pointer;"
-          :title="'Click to change language'"
-        >
-          <i :class="`${getLanguageByCode(selectedLanguages[1]).flag} flag`"></i> 
-          {{ getLanguageByCode(selectedLanguages[1]).name }}
-          <i class="dropdown icon" style="margin-left: 5px;"></i>
+      <form @submit.prevent="onSubmit" class="word-form">
+        <!-- First language input -->
+        <div class="form-group">
+          <label class="form-label">Language 1</label>
+          <div class="input-group">
+            <div 
+              class="language-label"
+              @click="openLanguageSelector(0)"
+              style="cursor: pointer;"
+            >
+              <i :class="`${getLanguageByCode(selectedLanguages[0]).flag} flag`"></i> 
+              {{ getLanguageByCode(selectedLanguages[0]).name }}
+              <i class="dropdown icon"></i>
+            </div>
+            <input 
+              type="text" 
+              required
+              v-model="word.translations[selectedLanguages[0]]" 
+              :placeholder="`Enter ${getLanguageByCode(selectedLanguages[0]).name} word`"
+              class="form-input"
+            />
+          </div>
         </div>
-        <input 
-          type="text" 
-          required
-          v-model="word.translations[selectedLanguages[1]]" 
-          :placeholder="`Enter ${getLanguageByCode(selectedLanguages[1]).name} word`"
-        />
-      </div>
-      
-      <button class="ui primary button" type="submit">Submit</button>
-    </form>
+        
+        <!-- Second language input -->
+        <div class="form-group">
+          <label class="form-label">Language 2</label>
+          <div class="input-group">
+            <div 
+              class="language-label"
+              @click="openLanguageSelector(1)"
+              style="cursor: pointer;"
+            >
+              <i :class="`${getLanguageByCode(selectedLanguages[1]).flag} flag`"></i> 
+              {{ getLanguageByCode(selectedLanguages[1]).name }}
+              <i class="dropdown icon"></i>
+            </div>
+            <input 
+              type="text" 
+              required
+              v-model="word.translations[selectedLanguages[1]]" 
+              :placeholder="`Enter ${getLanguageByCode(selectedLanguages[1]).name} word`"
+              class="form-input"
+            />
+          </div>
+        </div>
+        
+        <button class="ui primary button" type="submit">Submit</button>
+      </form>
 
-    <!-- Simple Language Dropdown -->
-    <div 
-      v-if="showLanguageSelector" 
-      class="language-dropdown"
-      @click.stop
-    >
-      <div class="dropdown-content">
-        <div class="dropdown-header">Choose Language</div>
-        <div 
-          v-for="language in availableLanguages" 
-          :key="language.code"
-          class="dropdown-item"
-          @click="selectLanguage(language.code)"
-          :class="{ 'disabled': isLanguageAlreadySelected(language.code) }"
-        >
-          <i :class="`${language.flag} flag`"></i>
-          {{ language.name }}
-          <span v-if="isLanguageAlreadySelected(language.code)" class="already-selected">✓</span>
+      <!-- Language Dropdown -->
+      <div 
+        v-if="showLanguageSelector" 
+        class="language-dropdown"
+        @click.stop
+      >
+        <div class="dropdown-content">
+          <div class="dropdown-header">Choose Language</div>
+          <div 
+            v-for="language in availableLanguages" 
+            :key="language.code"
+            class="dropdown-item"
+            @click="selectLanguage(language.code)"
+            :class="{ 'disabled': isLanguageAlreadySelected(language.code) }"
+          >
+            <i :class="`${language.flag} flag`"></i>
+            {{ language.name }}
+            <span v-if="isLanguageAlreadySelected(language.code)" class="already-selected">✓</span>
+          </div>
         </div>
       </div>
+
+      <!-- Backdrop -->
+      <div 
+        v-if="showLanguageSelector" 
+        class="dropdown-backdrop"
+        @click="closeLanguageSelector"
+      ></div>
     </div>
-
-    <!-- Backdrop to close dropdown -->
-    <div 
-      v-if="showLanguageSelector" 
-      class="dropdown-backdrop"
-      @click="closeLanguageSelector"
-    ></div>
   </div>
 </template>
 
@@ -213,6 +221,95 @@ export default {
 </script>
 
 <style scoped>
+.new-page {
+  width: 100vw;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 40px 20px;
+}
+
+.page-container {
+  max-width: 600px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 12px;
+  padding: 40px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 30px;
+  font-size: 28px;
+}
+
+.word-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.input-group {
+  display: flex;
+  gap: 10px;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #f9fafb;
+}
+
+.language-label {
+  background: #f3f4f6;
+  padding: 12px 15px;
+  border-right: 2px solid #e5e7eb;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  color: #374151;
+  white-space: nowrap;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.language-label:hover {
+  background: #e5e7eb;
+}
+
+.form-input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  padding: 12px 15px;
+  font-size: 14px;
+  outline: none;
+  color: #1f2937;
+}
+
+.form-input::placeholder {
+  color: #9ca3af;
+}
+
+.ui.primary.button {
+  align-self: flex-start;
+  margin-top: 10px;
+}
+
 .language-selector {
   transition: all 0.2s ease;
 }
@@ -222,7 +319,6 @@ export default {
   transform: scale(1.02);
 }
 
-/* Simple dropdown instead of modal */
 .language-dropdown {
   position: fixed;
   top: 50%;

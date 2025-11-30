@@ -1,26 +1,28 @@
 <template>
-  <div>
-    <h1>Edit Word</h1>
-    <form action="" @submit.prevent="onSubmit">
-      <div 
-        v-for="lang in usedLanguages" 
-        :key="lang.code"
-        class="ui labeled input fluid" 
-        style="margin-bottom: 15px;"
-      >
-        <div class="ui label">
-          <i :class="`${lang.flag} flag`"></i> 
-          {{ lang.name }}
+  <div class="edit-page">
+    <div class="page-container">
+      <h1>Edit Word</h1>
+      <form @submit.prevent="onSubmit" class="word-form">
+        <div 
+          v-for="lang in usedLanguages" 
+          :key="lang.code"
+          class="form-group"
+        >
+          <label class="form-label">
+            <i :class="`${lang.flag} flag`"></i>
+            {{ lang.name }}
+          </label>
+          <input 
+            type="text" 
+            required 
+            v-model="word.translations[lang.code]"
+            class="form-input"
+          />
         </div>
-        <input 
-          type="text" 
-          required 
-          v-model="word.translations[lang.code]"
-        />
-      </div>
-      
-      <button class="ui primary button">Submit</button>
-    </form>
+        
+        <button class="ui primary button">Submit</button>
+      </form>
+    </div>
   </div>
 </template>
 
@@ -135,3 +137,73 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.edit-page {
+  width: 100vw;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  padding: 40px 20px;
+}
+
+.page-container {
+  max-width: 600px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 12px;
+  padding: 40px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+h1 {
+  text-align: center;
+  color: #1f2937;
+  margin-bottom: 30px;
+  font-size: 28px;
+}
+
+.word-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.form-input {
+  padding: 12px;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 14px;
+  outline: none;
+  color: #1f2937;
+  background: #f9fafb;
+  transition: all 0.3s ease;
+}
+
+.form-input:focus {
+  border-color: #f59e0b;
+  background: white;
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1);
+}
+
+.ui.primary.button {
+  align-self: flex-start;
+  margin-top: 10px;
+}
+</style>

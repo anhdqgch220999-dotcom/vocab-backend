@@ -1,113 +1,94 @@
 <template>
-  <div class="ui container">
-    <div class="ui middle aligned center aligned grid">
-      <div class="column" style="max-width: 450px;">
-        <h2 class="ui teal image header">
-          <div class="content">
-            Create new account
-          </div>
-        </h2>
-        <form class="ui large form" @submit.prevent="onSubmit">
-          <div class="ui stacked segment">
-            <div class="two fields">
-              <div class="field">
-                <div class="ui left icon input">
-                  <i class="user icon"></i>
-                  <input
-                    type="text"
-                    name="firstName"
-                    placeholder="First Name"
-                    v-model="formData.firstName"
-                    required
-                  >
-                </div>
-              </div>
-              <div class="field">
-                <div class="ui left icon input">
-                  <i class="user icon"></i>
-                  <input 
-                    type="text" 
-                    name="lastName" 
-                    placeholder="Last Name"
-                    v-model="formData.lastName"
-                    required
-                  >
-                </div>
-              </div>
-            </div>
-            
-            <div class="field">
-              <div class="ui left icon input">
-                <i class="at icon"></i>
-                <input 
-                  type="text" 
-                  name="username" 
-                  placeholder="Username"
-                  v-model="formData.username"
-                  required
-                >
-              </div>
-            </div>
-            
-            <div class="field">
-              <div class="ui left icon input">
-                <i class="mail icon"></i>
-                <input 
-                  type="email" 
-                  name="email" 
-                  placeholder="Email"
-                  v-model="formData.email"
-                  required
-                >
-              </div>
-            </div>
-            
-            <div class="field">
-              <div class="ui left icon input">
-                <i class="lock icon"></i>
-                <input 
-                  type="password" 
-                  name="password" 
-                  placeholder="Password (at least 6 characters)"
-                  v-model="formData.password"
-                  required
-                  minlength="6"
-                >
-              </div>
-            </div>
-            
-            <div class="field">
-              <div class="ui left icon input">
-                <i class="lock icon"></i>
-                <input 
-                  type="password" 
-                  name="confirmPassword" 
-                  placeholder="Confirm Password"
-                  v-model="formData.confirmPassword"
-                  required
-                >
-              </div>
-            </div>
-            
-            <button 
-              class="ui fluid large teal submit button" 
-              type="submit"
-              :class="{ loading: isLoading }"
-              :disabled="isLoading"
+  <div class="register-page">
+    <div class="register-card">
+      <h2 class="register-title">Create new account</h2>
+      
+      <form class="register-form" @submit.prevent="onSubmit">
+        <div class="form-row">
+          <div class="form-group">
+            <label>First Name</label>
+            <input
+              type="text"
+              placeholder="First Name"
+              v-model="formData.firstName"
+              required
+              class="form-input"
             >
-              Register
-            </button>
           </div>
-
-          <div v-if="errorMessage" class="ui error message">
-            {{ errorMessage }}
+          <div class="form-group">
+            <label>Last Name</label>
+            <input 
+              type="text" 
+              placeholder="Last Name"
+              v-model="formData.lastName"
+              required
+              class="form-input"
+            >
           </div>
-        </form>
-
-        <div class="ui message">
-          Already have an account? 
-          <router-link to="/login">Sign in now</router-link>
         </div>
+        
+        <div class="form-group">
+          <label>Username</label>
+          <input 
+            type="text" 
+            placeholder="Username"
+            v-model="formData.username"
+            required
+            class="form-input"
+          >
+        </div>
+        
+        <div class="form-group">
+          <label>Email Address</label>
+          <input 
+            type="email" 
+            placeholder="Email"
+            v-model="formData.email"
+            required
+            class="form-input"
+          >
+        </div>
+        
+        <div class="form-group">
+          <label>Password</label>
+          <input 
+            type="password" 
+            placeholder="Password (at least 6 characters)"
+            v-model="formData.password"
+            required
+            minlength="6"
+            class="form-input"
+          >
+        </div>
+        
+        <div class="form-group">
+          <label>Confirm Password</label>
+          <input 
+            type="password" 
+            placeholder="Confirm Password"
+            v-model="formData.confirmPassword"
+            required
+            class="form-input"
+          >
+        </div>
+        
+        <button 
+          class="register-button" 
+          type="submit"
+          :class="{ loading: isLoading }"
+          :disabled="isLoading"
+        >
+          Register
+        </button>
+
+        <div v-if="errorMessage" class="error-message">
+          {{ errorMessage }}
+        </div>
+      </form>
+
+      <div class="register-footer">
+        Already have an account? 
+        <router-link to="/login" class="signin-link">Sign in now</router-link>
       </div>
     </div>
   </div>
@@ -138,9 +119,8 @@ export default {
       isLoading.value = true;
       errorMessage.value = '';
 
-      // Kiểm tra mật khẩu xác nhận
       if (formData.value.password !== formData.value.confirmPassword) {
-        errorMessage.value = 'Password confirmation does not match!';
+        errorMessage.value = 'Passwords do not match!';
         isLoading.value = false;
         return;
       }
@@ -171,7 +151,132 @@ export default {
 </script>
 
 <style scoped>
-.ui.container {
-  margin-top: 3em;
+.register-page {
+  width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  padding: 20px;
+}
+
+.register-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  padding: 40px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.register-title {
+  text-align: center;
+  color: #1f2937;
+  margin-bottom: 30px;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.register-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.form-input {
+  padding: 10px;
+  border: 2px solid #e5e7eb;
+  border-radius: 6px;
+  font-size: 13px;
+  outline: none;
+  color: #1f2937;
+  background: #f9fafb;
+  transition: all 0.3s ease;
+}
+
+.form-input:focus {
+  border-color: #f5576c;
+  background: white;
+  box-shadow: 0 0 0 3px rgba(245, 87, 108, 0.1);
+}
+
+.form-input::placeholder {
+  color: #9ca3af;
+}
+
+.register-button {
+  padding: 12px;
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: 10px;
+}
+
+.register-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(245, 87, 108, 0.4);
+}
+
+.register-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.error-message {
+  padding: 12px;
+  background: #fee2e2;
+  border: 1px solid #fca5a5;
+  border-radius: 6px;
+  color: #991b1b;
+  font-size: 13px;
+  text-align: center;
+}
+
+.register-footer {
+  text-align: center;
+  margin-top: 20px;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.signin-link {
+  color: #f5576c;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  margin-left: 5px;
+}
+
+.signin-link:hover {
+  color: #f093fb;
+  text-decoration: underline;
 }
 </style>
