@@ -193,14 +193,10 @@ export default {
 }
 
 .words-container {
-  width: 100%;
+  width: 100vw;
   min-height: 100vh;
   background: linear-gradient(135deg, #6ee7b7 0%, #2dd4bf 100%);
-  padding: 80px 20px 20px;
-  position: fixed;
-  top: 0;
-  left: 0;
-  overflow-y: auto;
+  padding: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;

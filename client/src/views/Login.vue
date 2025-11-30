@@ -110,16 +110,13 @@ export default {
 }
 
 .login-page {
-  width: 100%;
+  width: 100vw;
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   padding: 20px;
-  position: fixed;
-  top: 0;
-  left: 0;
 }
 
 .login-card {
