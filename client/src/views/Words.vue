@@ -1,54 +1,55 @@
 <template>
   <div class="words-container">
-    <div class="words-header">
-      <h1>📚 Word List</h1>
-      <p>Manage and practice your vocabulary</p>
-    </div>
-    
-    <!-- Language Selection Dropdowns -->
-    <div class="language-selector">
-      <div class="lang-field">
-        <label>Column 1 Language</label>
-        <div class="select-wrapper">
-          <i class="flag icon"></i>
-          <select v-model="selectedLanguage1" class="ui dropdown compact">
-            <option v-for="lang in availableLanguages" :key="lang.code" :value="lang.code">
-              {{ lang.name }}
-            </option>
-          </select>
+    <div class="words-content">
+      <div class="words-header">
+        <h1>📚 Word List</h1>
+        <p>Manage and practice your vocabulary</p>
+      </div>
+      
+      <!-- Language Selection Dropdowns -->
+      <div class="language-selector">
+        <div class="lang-field">
+          <label>Column 1 Language</label>
+          <div class="select-wrapper">
+            <i class="flag icon"></i>
+            <select v-model="selectedLanguage1" class="ui dropdown compact">
+              <option v-for="lang in availableLanguages" :key="lang.code" :value="lang.code">
+                {{ lang.name }}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="lang-field">
+          <label>Column 2 Language</label>
+          <div class="select-wrapper">
+            <i class="flag icon"></i>
+            <select v-model="selectedLanguage2" class="ui dropdown compact">
+              <option v-for="lang in availableLanguages" :key="lang.code" :value="lang.code">
+                {{ lang.name }}
+              </option>
+            </select>
+          </div>
         </div>
       </div>
-      <div class="lang-field">
-        <label>Column 2 Language</label>
-        <div class="select-wrapper">
-          <i class="flag icon"></i>
-          <select v-model="selectedLanguage2" class="ui dropdown compact">
-            <option v-for="lang in availableLanguages" :key="lang.code" :value="lang.code">
-              {{ lang.name }}
-            </option>
-          </select>
-        </div>
-      </div>
-    </div>
 
-    <!-- Words Table -->
-    <div class="table-container">
-      <table class="words-table">
-        <thead>
-          <tr>
-            <th>
-              <i :class="`${getLanguageFlag(selectedLanguage1)} flag`"></i>
-              {{ getLanguageName(selectedLanguage1) }}
-            </th>
-            <th>
-              <i :class="`${getLanguageFlag(selectedLanguage2)} flag`"></i>
-              {{ getLanguageName(selectedLanguage2) }}
-            </th>
-            <th>📅 Created At</th>
-            <th colspan="3">⚙️ Actions</th>
-          </tr>
-        </thead>
-        <tbody>
+      <!-- Words Table -->
+      <div class="table-container">
+        <table class="words-table">
+          <thead>
+            <tr>
+              <th>
+                <i :class="`${getLanguageFlag(selectedLanguage1)} flag`"></i>
+                {{ getLanguageName(selectedLanguage1) }}
+              </th>
+              <th>
+                <i :class="`${getLanguageFlag(selectedLanguage2)} flag`"></i>
+                {{ getLanguageName(selectedLanguage2) }}
+              </th>
+              <th>📅 Created At</th>
+              <th colspan="3">⚙️ Actions</th>
+            </tr>
+          </thead>
+          <tbody>
           <tr v-for="(word, index) in words" :key="index" class="word-row">
             <td>{{ getTranslation(word, selectedLanguage1) }}</td>
             <td>{{ getTranslation(word, selectedLanguage2) }}</td>
@@ -77,6 +78,7 @@
           </tr>
         </tbody>
       </table>
+    </div>
     </div>
   </div>
 </template>
@@ -199,6 +201,11 @@ export default {
   padding: 20px;
   display: flex;
   justify-content: center;
+}
+
+.words-content {
+  width: 100%;
+  max-width: 1200px;
 }
 
 @keyframes slideUp {

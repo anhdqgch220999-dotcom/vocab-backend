@@ -1,54 +1,55 @@
 <template>
   <div class="matching-container">
-    <h1>Word Matching Game</h1>
-    
-    <!-- Game Setup (before game starts) -->
-    <div v-if="gameStatus === 'setup'" class="setup-section">
-      <div class="ui form">
-        <div class="two fields">
-          <div class="field">
-            <label>Column 1 Language</label>
-            <select v-model="language1" class="ui dropdown compact">
-              <option v-for="lang in availableLanguages" :key="lang.code" :value="lang.code">
-                {{ lang.name }}
-              </option>
-            </select>
+    <div class="matching-content">
+      <h1>Word Matching Game</h1>
+      
+      <!-- Game Setup (before game starts) -->
+      <div v-if="gameStatus === 'setup'" class="setup-section">
+        <div class="ui form">
+          <div class="two fields">
+            <div class="field">
+              <label>Column 1 Language</label>
+              <select v-model="language1" class="ui dropdown compact">
+                <option v-for="lang in availableLanguages" :key="lang.code" :value="lang.code">
+                  {{ lang.name }}
+                </option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Column 2 Language</label>
+              <select v-model="language2" class="ui dropdown compact">
+                <option v-for="lang in availableLanguages" :key="lang.code" :value="lang.code">
+                  {{ lang.name }}
+                </option>
+              </select>
+            </div>
           </div>
-          <div class="field">
-            <label>Column 2 Language</label>
-            <select v-model="language2" class="ui dropdown compact">
-              <option v-for="lang in availableLanguages" :key="lang.code" :value="lang.code">
-                {{ lang.name }}
-              </option>
+          <div class="one field">
+            <label>Number of Words</label>
+            <select v-model.number="numWords" class="ui dropdown compact" style="width: 150px;">
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="8">8</option>
+              <option value="10">10</option>
             </select>
           </div>
         </div>
-        <div class="one field">
-          <label>Number of Words</label>
-          <select v-model.number="numWords" class="ui dropdown compact" style="width: 150px;">
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="8">8</option>
-            <option value="10">10</option>
-          </select>
-        </div>
+        <button @click="startGame" class="ui primary button" style="margin-top: 20px;">
+          Start Game
+        </button>
+        <router-link to="/words" class="ui button" style="margin-left: 10px;">Back to Words</router-link>
       </div>
-      <button @click="startGame" class="ui primary button" style="margin-top: 20px;">
-        Start Game
-      </button>
-      <router-link to="/words" class="ui button" style="margin-left: 10px;">Back to Words</router-link>
-    </div>
 
-    <!-- Game Stats -->
-    <div v-if="gameStatus === 'playing'" class="stats">
-      <div class="stat-item">
-        <i class="clock outline icon"></i>
-        <span>Time: {{ formatTime(timeRemaining) }}</span>
-      </div>
-      <div class="stat-item">
-        <i class="check icon"></i>
-        <span>Matches: {{ correctMatches }}/{{ totalPairs }}</span>
+      <!-- Game Stats -->
+      <div v-if="gameStatus === 'playing'" class="stats">
+        <div class="stat-item">
+          <i class="clock outline icon"></i>
+          <span>Time: {{ formatTime(timeRemaining) }}</span>
+        </div>
+        <div class="stat-item">
+          <i class="check icon"></i>
+          <span>Matches: {{ correctMatches }}/{{ totalPairs }}</span>
       </div>
       <div class="stat-item">
         <i class="star icon"></i>
@@ -118,6 +119,7 @@
     <!-- Back button -->
     <div v-if="gameStatus !== 'finished' && gameStatus !== 'setup'" style="margin-top: 20px;">
       <router-link to="/words" class="ui button">Back to Words</router-link>
+    </div>
     </div>
   </div>
 </template>
@@ -383,11 +385,14 @@ export default {
   padding: 20px;
   display: flex;
   justify-content: center;
-  flex-direction: column;
-  align-items: center;
 }
 
-.matching-container > h1 {
+.matching-content {
+  width: 100%;
+  max-width: 1000px;
+}
+
+.matching-content > h1 {
   color: white;
   font-size: 32px;
   margin-bottom: 30px;
