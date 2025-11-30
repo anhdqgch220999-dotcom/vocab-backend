@@ -198,8 +198,7 @@ export default {
   background: linear-gradient(135deg, #6ee7b7 0%, #2dd4bf 100%);
   padding: 20px;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  justify-content: center;
 }
 
 @keyframes slideUp {
