@@ -142,30 +142,38 @@ export default {
 .edit-page {
   width: 100vw;
   min-height: 100vh;
-  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  background: #2dd4bf;
   padding: 40px 20px;
+  display: flex;
+  justify-content: center;
 }
 
 .page-container {
   max-width: 600px;
-  margin: 0 auto;
-  background: white;
-  border-radius: 12px;
-  padding: 40px;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 16px;
+  padding: 45px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.8);
 }
 
 h1 {
   text-align: center;
-  color: #1f2937;
-  margin-bottom: 30px;
-  font-size: 28px;
+  background: linear-gradient(135deg, #2dd4bf 0%, #14b8a6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 35px;
+  font-size: 32px;
+  font-weight: 700;
 }
 
 .word-form {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 24px;
 }
 
 .form-group {
@@ -174,32 +182,38 @@ h1 {
 }
 
 .form-label {
-  font-size: 14px;
-  font-weight: 600;
-  color: #1f2937;
-  margin-bottom: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #2dd4bf;
+  margin-bottom: 10px;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 1px;
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
 .form-input {
-  padding: 12px;
+  padding: 14px 16px;
   border: 2px solid #e5e7eb;
-  border-radius: 8px;
+  border-radius: 10px;
   font-size: 14px;
+  font-weight: 500;
   outline: none;
   color: #1f2937;
-  background: #f9fafb;
+  background: linear-gradient(135deg, #f8fdfc 0%, #f0fdfb 100%);
   transition: all 0.3s ease;
 }
 
+.form-input:hover {
+  border-color: #2dd4bf;
+  background: linear-gradient(135deg, #f0fdfb 0%, #ecfdf5 100%);
+}
+
 .form-input:focus {
-  border-color: #f59e0b;
+  border-color: #2dd4bf;
   background: white;
-  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1);
+  box-shadow: 0 0 0 4px rgba(45, 212, 191, 0.15);
 }
 
 .ui.primary.button {

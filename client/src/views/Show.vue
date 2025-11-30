@@ -139,9 +139,11 @@ export default {
   margin: 0 auto;
   padding: 20px;
   min-height: 100vh;
-  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
-  border-radius: 12px;
+  background: #2dd4bf;
   animation: slideUp 0.6s ease-out;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 @keyframes slideUp {
@@ -156,17 +158,21 @@ export default {
 }
 
 .show-header {
-  background: white;
-  padding: 30px;
-  border-radius: 12px;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-  margin-bottom: 25px;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.8);
 }
 
 .show-header h1 {
-  font-size: 32px;
-  color: #1f2937;
-  margin: 0 0 10px 0;
+  font-size: 36px;
+  background: linear-gradient(135deg, #2dd4bf 0%, #14b8a6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin: 0 0 12px 0;
   font-weight: 700;
 }
 
@@ -174,13 +180,16 @@ export default {
   font-size: 16px;
   color: #6b7280;
   margin: 0;
+  font-weight: 500;
 }
 
 .word-details-card {
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
   padding: 40px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.8);
 }
 
 .translation-field {
@@ -195,11 +204,11 @@ export default {
   display: flex;
   align-items: center;
   gap: 10px;
-  font-size: 14px;
-  font-weight: 600;
-  color: #1f2937;
+  font-size: 12px;
+  font-weight: 700;
+  color: #2dd4bf;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 1px;
   margin-bottom: 12px;
 }
 
