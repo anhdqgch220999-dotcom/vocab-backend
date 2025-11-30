@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="ui inverted segment navbar">
-      <div class="ui container">
+      <div class="navbar-inner">
         <div class="navbar-content">
           <div class="ui large secondary inverted pointing menu compact">
             <template v-if="authStore.isLoggedIn">
@@ -50,15 +50,7 @@
       </div>
     </div>
 
-    <div class="ui container">
-      <div class="ui grid">
-        <div class="row">
-          <div class="twelve wide column">
-            <router-view />
-          </div>
-        </div>
-      </div>
-    </div>
+    <router-view />
   </div>
 </template>
 
@@ -88,8 +80,25 @@ export default {
 </script>
 
 <style>
+html, body {
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 100%;
+  overflow-x: hidden;
+}
+
 .navbar {
   margin-bottom: 2em;
+  width: 100%;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.navbar-inner {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 0 20px;
 }
 
 .navbar-content {
@@ -97,6 +106,7 @@ export default {
   justify-content: center;
   align-items: center;
   width: 100%;
+  max-width: 1200px;
   position: relative;
 }
 

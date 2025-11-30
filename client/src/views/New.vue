@@ -227,35 +227,53 @@ export default {
   box-sizing: border-box;
 }
 
+:global(body) {
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow-x: hidden;
+}
+
 .new-page {
   min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  width: 100%;
+  background: #2dd4bf;
+  padding: 0;
+  margin: 0;
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  padding: 40px 20px;
+  padding-top: 40px;
+  overflow-y: auto;
+  z-index: 1;
 }
 
 .page-container {
   width: 100%;
   max-width: 600px;
-  background: white;
-  border-radius: 12px;
-  padding: 40px;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  margin: 0 20px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 16px;
+  padding: 45px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.8);
 }
 
 h1 {
   text-align: center;
-  color: #333;
-  margin-bottom: 30px;
-  font-size: 28px;
+  background: linear-gradient(135deg, #2dd4bf 0%, #14b8a6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 35px;
+  font-size: 32px;
+  font-weight: 700;
 }
 
 .word-form {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 24px;
 }
 
 .form-group {
@@ -264,53 +282,64 @@ h1 {
 }
 
 .form-label {
-  font-size: 14px;
-  font-weight: 600;
-  color: #1f2937;
-  margin-bottom: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #2dd4bf;
+  margin-bottom: 10px;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 1px;
 }
 
 .input-group {
   display: flex;
-  gap: 10px;
+  gap: 0;
   border: 2px solid #e5e7eb;
-  border-radius: 8px;
+  border-radius: 10px;
   overflow: hidden;
-  background: #f9fafb;
+  background: linear-gradient(135deg, #f8fdfc 0%, #f0fdfb 100%);
+  transition: all 0.3s ease;
+}
+
+.input-group:focus-within {
+  border-color: #2dd4bf;
+  background: white;
+  box-shadow: 0 0 0 4px rgba(45, 212, 191, 0.15);
 }
 
 .language-label {
-  background: #f3f4f6;
-  padding: 12px 15px;
+  background: linear-gradient(135deg, #f0fdfb 0%, #ecfdf5 100%);
+  padding: 14px 16px;
   border-right: 2px solid #e5e7eb;
   display: flex;
   align-items: center;
   gap: 8px;
-  font-weight: 600;
-  color: #374151;
+  font-weight: 700;
+  color: #2dd4bf;
   white-space: nowrap;
   transition: all 0.3s ease;
   cursor: pointer;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .language-label:hover {
-  background: #e5e7eb;
+  background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
 }
 
 .form-input {
   flex: 1;
   border: none;
   background: transparent;
-  padding: 12px 15px;
+  padding: 14px 16px;
   font-size: 14px;
+  font-weight: 500;
   outline: none;
   color: #1f2937;
 }
 
 .form-input::placeholder {
-  color: #9ca3af;
+  color: #a8b5bf;
 }
 
 .ui.primary.button {

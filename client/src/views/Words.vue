@@ -192,18 +192,30 @@ export default {
   box-sizing: border-box;
 }
 
+:global(body) {
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow-x: hidden;
+}
+
 /* 1. CONTAINER CHÍNH: Căn giữa nội dung trên nền gradient */
 .words-container {
   min-height: 100vh;
-  background: linear-gradient(135deg, #6ee7b7 0%, #2dd4bf 100%);
-  padding: 20px;
+  width: 100%;
+  background: #2dd4bf;
+  padding: 0;
+  margin: 0;
   display: flex;
   justify-content: center;
+  align-items: flex-start;
+  padding-top: 20px;
+  overflow-y: auto;
 }
 
 .words-content {
   width: 100%;
   max-width: 1200px;
+  padding: 0 20px;
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -223,34 +235,43 @@ export default {
 
 /* 3. HEADER */
 .words-header {
-  background: white;
-  padding: 30px;
-  border-radius: 12px;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.95);
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.8);
 }
 
 .words-header h1 {
-  font-size: 36px;
+  font-size: 40px;
   color: #1f2937;
-  margin: 0 0 10px 0;
+  margin: 0 0 12px 0;
   font-weight: 700;
+  background: linear-gradient(135deg, #2dd4bf 0%, #14b8a6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .words-header p {
   font-size: 16px;
   color: #6b7280;
   margin: 0;
+  font-weight: 500;
 }
 
 /* 4. LANGUAGE SELECTOR */
 .language-selector {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 20px;
-  align-items: flex-end;
-  background: white;
-  padding: 25px;
-  border-radius: 12px;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.95);
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.8);
 }
 
 .lang-field {
@@ -259,13 +280,13 @@ export default {
 }
 
 .lang-field label {
-  font-size: 13px !important;
-  font-weight: 600;
+  font-size: 12px !important;
+  font-weight: 700;
   display: block;
-  margin-bottom: 10px;
-  color: #1f2937;
+  margin-bottom: 12px;
+  color: #2dd4bf;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 1px;
 }
 
 .select-wrapper {
@@ -273,29 +294,36 @@ export default {
   display: flex;
   align-items: center;
   border: 2px solid #e5e7eb;
-  border-radius: 6px;
+  border-radius: 10px;
   transition: all 0.3s ease;
-  background: #f9fafb;
+  background: linear-gradient(135deg, #f8fdfc 0%, #f0fdfb 100%);
+}
+
+.select-wrapper:hover {
+  border-color: #2dd4bf;
+  background: linear-gradient(135deg, #f0fdfb 0%, #ecfdf5 100%);
 }
 
 .select-wrapper:focus-within {
   border-color: #2dd4bf;
   background: white;
-  box-shadow: 0 0 0 3px rgba(45, 212, 191, 0.1);
+  box-shadow: 0 0 0 4px rgba(45, 212, 191, 0.15);
+  transform: translateY(-2px);
 }
 
 .select-wrapper i {
-  padding: 0 12px;
+  padding: 0 14px;
   color: #2dd4bf;
-  font-size: 16px;
+  font-size: 18px;
 }
 
 .select-wrapper select {
   flex: 1;
   border: none;
   background: transparent;
-  padding: 12px 0 12px 0;
+  padding: 14px 0 14px 0;
   font-size: 14px;
+  font-weight: 500;
   outline: none;
   color: #1f2937;
   font-family: inherit;
@@ -304,10 +332,12 @@ export default {
 
 /* 5. WORDS TABLE CONTAINER */
 .table-container {
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
   overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
 }
 
 /* TABLE STYLES */
@@ -318,17 +348,17 @@ export default {
 }
 
 .words-table thead {
-  background: linear-gradient(135deg, #6ee7b7 0%, #2dd4bf 100%);
+  background: linear-gradient(135deg, #2dd4bf 0%, #14b8a6 100%);
   color: white;
 }
 
 .words-table thead th {
-  padding: 18px;
+  padding: 20px;
   text-align: left;
-  font-weight: 600;
+  font-weight: 700;
   text-transform: uppercase;
   font-size: 12px;
-  letter-spacing: 0.5px;
+  letter-spacing: 1px;
 }
 
 .words-table th i {
@@ -342,13 +372,14 @@ export default {
 }
 
 .words-table tbody tr:hover {
-  background: #f9fafb;
+  background: linear-gradient(90deg, rgba(45, 212, 191, 0.05) 0%, rgba(45, 212, 191, 0) 100%);
 }
 
 .words-table tbody td {
-  padding: 16px 18px;
+  padding: 18px 20px;
   color: #374151;
   vertical-align: middle;
+  font-weight: 500;
 }
 
 /* ACTION BUTTONS */
@@ -356,15 +387,15 @@ export default {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 8px 12px;
-  border-radius: 6px;
-  font-weight: 600;
-  font-size: 12px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 11px;
   text-decoration: none;
   cursor: pointer;
   transition: all 0.3s ease;
   text-transform: uppercase;
-  letter-spacing: 0.3px;
+  letter-spacing: 0.5px;
   border: none;
   white-space: nowrap;
 }
@@ -376,30 +407,33 @@ export default {
 .btn-show {
   background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
   color: white;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
 }
 
 .btn-show:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(59, 130, 246, 0.4);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(59, 130, 246, 0.5);
 }
 
 .btn-edit {
   background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
   color: white;
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
 }
 
 .btn-edit:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(245, 158, 11, 0.4);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(245, 158, 11, 0.5);
 }
 
 .btn-delete {
   background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
   color: white;
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
 }
 
 .btn-delete:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(239, 68, 68, 0.4);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(239, 68, 68, 0.5);
 }
 </style>

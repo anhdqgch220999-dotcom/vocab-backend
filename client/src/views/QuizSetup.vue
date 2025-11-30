@@ -227,43 +227,62 @@
         box-sizing: border-box;
     }
 
+    :global(body) {
+        margin: 0 !important;
+        padding: 0 !important;
+        overflow-x: hidden;
+    }
+
     .quiz-page {
         min-height: 100vh;
-        background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+        width: 100%;
+        background: #2dd4bf;
+        padding: 0;
+        margin: 0;
         display: flex;
         justify-content: center;
         align-items: flex-start;
-        padding: 40px 20px;
+        padding-top: 40px;
     }
 
     .page-container {
         width: 100%;
         max-width: 700px;
-        background: white;
-        border-radius: 12px;
-        padding: 40px;
-        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        margin: 0 20px;
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 16px;
+        padding: 45px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.8);
     }
 
     h1 {
         text-align: center;
-        color: #1f2937;
-        margin-bottom: 30px;
-        font-size: 28px;
+        background: linear-gradient(135deg, #2dd4bf 0%, #14b8a6 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 35px;
+        font-size: 32px;
+        font-weight: 700;
     }
 
     h3 {
-        color: #1f2937;
+        color: #2dd4bf;
         margin-top: 40px;
         margin-bottom: 20px;
         font-size: 20px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
     }
 
     .quiz-form {
         display: flex;
         flex-direction: column;
-        gap: 20px;
-        margin-bottom: 30px;
+        gap: 24px;
+        margin-bottom: 35px;
     }
 
     .form-group {
@@ -272,12 +291,37 @@
     }
 
     .form-group label {
-        font-size: 14px;
-        font-weight: 600;
-        color: #1f2937;
-        margin-bottom: 8px;
+        font-size: 12px;
+        font-weight: 700;
+        color: #2dd4bf;
+        margin-bottom: 10px;
         text-transform: uppercase;
-        letter-spacing: 0.5px;
+        letter-spacing: 1px;
+    }
+
+    .form-group select {
+        height: 42px;
+        border: 2px solid #e5e7eb;
+        border-radius: 10px;
+        background: linear-gradient(135deg, #f8fdfc 0%, #f0fdfb 100%);
+        padding: 10px 14px;
+        font-weight: 500;
+        font-size: 14px;
+        color: #1f2937;
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }
+
+    .form-group select:hover {
+        border-color: #2dd4bf;
+        background: linear-gradient(135deg, #f0fdfb 0%, #ecfdf5 100%);
+    }
+
+    .form-group select:focus {
+        border-color: #2dd4bf;
+        background: white;
+        box-shadow: 0 0 0 4px rgba(45, 212, 191, 0.15);
+        outline: none;
     }
 
     .two-cols {
@@ -287,11 +331,46 @@
     }
 
     .ui.form .field select {
-        height: 38px;
+        height: 40px;
+        border: 2px solid #e5e7eb;
+        border-radius: 10px;
+        background: linear-gradient(135deg, #f8fdfc 0%, #f0fdfb 100%);
+        font-weight: 500;
+        transition: all 0.3s ease;
     }
 
-    .ui.error.message {
-        margin-top: 15px;
+    .ui.form .field select:hover {
+        border-color: #2dd4bf;
+        background: linear-gradient(135deg, #f0fdfb 0%, #ecfdf5 100%);
+    }
+
+    .ui.form .field select:focus {
+        border-color: #2dd4bf;
+        background: white;
+        box-shadow: 0 0 0 4px rgba(45, 212, 191, 0.15);
+    }
+
+    .ui.primary.button {
+        background: linear-gradient(135deg, #2dd4bf 0%, #14b8a6 100%) !important;
+        color: white !important;
+        font-weight: 700 !important;
+        padding: 12px 24px !important;
+        border-radius: 10px !important;
+        border: none !important;
+        box-shadow: 0 4px 12px rgba(45, 212, 191, 0.3) !important;
+        transition: all 0.3s ease !important;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .ui.primary.button:hover:not(:disabled) {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(45, 212, 191, 0.5) !important;
+    }
+
+    .ui.primary.button:disabled {
+        opacity: 0.6 !important;
+        cursor: not-allowed !important;
     }
 
     .history-section {

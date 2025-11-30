@@ -378,17 +378,28 @@ export default {
   box-sizing: border-box;
 }
 
+:global(body) {
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow-x: hidden;
+}
+
 .matching-container {
   min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  padding: 20px;
+  width: 100%;
+  background: #2dd4bf;
+  padding: 0;
+  margin: 0;
   display: flex;
   justify-content: center;
+  align-items: flex-start;
+  padding-top: 20px;
 }
 
 .matching-content {
   width: 100%;
   max-width: 1000px;
+  padding: 0 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -396,9 +407,11 @@ export default {
 
 .matching-content > h1 {
   color: white;
-  font-size: 32px;
-  margin-bottom: 30px;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  font-size: 36px;
+  margin-bottom: 35px;
+  font-weight: 700;
+  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  letter-spacing: 1px;
 }
 
 @keyframes slideUp {
@@ -413,12 +426,14 @@ export default {
 }
 
 .setup-section {
-  background: white;
-  padding: 40px;
-  border-radius: 12px;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-  margin-bottom: 30px;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 45px;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  margin-bottom: 35px;
   width: 100%;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.8);
 }
 
 .setup-section .form {
@@ -428,9 +443,20 @@ export default {
   margin-bottom: 20px;
 }
 
+.setup-section .two.fields {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 24px !important;
+}
+
+.setup-section .one.field {
+  display: block !important;
+  margin-bottom: 20px;
+}
+
 .setup-section .fields {
   display: flex !important;
-  gap: 20px !important;
+  gap: 24px !important;
   align-items: flex-end;
   flex-wrap: wrap;
 }
@@ -438,6 +464,8 @@ export default {
 .setup-section .field {
   flex: 1;
   min-width: 200px;
+  display: flex !important;
+  flex-direction: column !important;
 }
 
 .setup-section .field:last-child {
@@ -446,37 +474,46 @@ export default {
 
 .setup-section select {
   width: 100% !important;
-  padding: 12px !important;
+  padding: 14px !important;
   font-size: 14px !important;
-  border: 2px solid #e8e8e8 !important;
-  border-radius: 6px !important;
+  font-weight: 500 !important;
+  border: 2px solid #e5e7eb !important;
+  border-radius: 10px !important;
+  background: linear-gradient(135deg, #f8fdfc 0%, #f0fdfb 100%) !important;
   transition: all 0.3s ease !important;
 }
 
+.setup-section select:hover {
+  border-color: #2dd4bf !important;
+  background: linear-gradient(135deg, #f0fdfb 0%, #ecfdf5 100%) !important;
+}
+
 .setup-section select:focus {
-  border-color: #667eea !important;
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1) !important;
+  border-color: #2dd4bf !important;
+  background: white !important;
+  box-shadow: 0 0 0 4px rgba(45, 212, 191, 0.15) !important;
 }
 
 .setup-section label {
-  font-size: 13px !important;
-  font-weight: 600;
+  font-size: 12px !important;
+  font-weight: 700;
   display: block;
-  margin-bottom: 8px;
-  color: #333;
+  margin-bottom: 10px;
+  color: #2dd4bf;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 1px;
 }
 
 .stats {
   display: flex;
   justify-content: space-around;
-  margin-bottom: 30px;
-  padding: 25px;
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-  width: 100%;
+  margin-bottom: 35px;
+  padding: 30px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.8);
 }
 
 .stat-item {
