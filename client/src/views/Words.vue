@@ -6,7 +6,6 @@
         <p>Manage and practice your vocabulary</p>
       </div>
       
-      <!-- Language Selection Dropdowns -->
       <div class="language-selector">
         <div class="lang-field">
           <label>Column 1 Language</label>
@@ -32,7 +31,6 @@
         </div>
       </div>
 
-      <!-- Words Table -->
       <div class="table-container">
         <table class="words-table">
           <thead>
@@ -125,7 +123,7 @@ export default {
     // Get language flag by code
     const getLanguageFlag = (langCode) => {
       const lang = availableLanguages.value.find(l => l.code === langCode);
-      return lang ? `${lang.flag} flag` : '';
+      return lang ? lang.flag : '';
     };
 
     // Get translation for specific language
@@ -194,8 +192,8 @@ export default {
   box-sizing: border-box;
 }
 
+/* 1. CONTAINER CHÍNH: Căn giữa nội dung trên nền gradient */
 .words-container {
-  width: 100vw;
   min-height: 100vh;
   background: linear-gradient(135deg, #6ee7b7 0%, #2dd4bf 100%);
   padding: 20px;
@@ -206,6 +204,10 @@ export default {
 .words-content {
   width: 100%;
   max-width: 1200px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  animation: slideUp 0.6s ease-out;
 }
 
 @keyframes slideUp {
@@ -219,14 +221,12 @@ export default {
   }
 }
 
+/* 3. HEADER */
 .words-header {
   background: white;
   padding: 30px;
   border-radius: 12px;
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-  margin-bottom: 25px;
-  width: 100%;
-  max-width: 1200px;
 }
 
 .words-header h1 {
@@ -242,17 +242,15 @@ export default {
   margin: 0;
 }
 
+/* 4. LANGUAGE SELECTOR */
 .language-selector {
   display: flex;
   gap: 20px;
-  margin-bottom: 25px;
   align-items: flex-end;
   background: white;
   padding: 25px;
   border-radius: 12px;
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  max-width: 1200px;
 }
 
 .lang-field {
@@ -304,15 +302,15 @@ export default {
   cursor: pointer;
 }
 
+/* 5. WORDS TABLE CONTAINER */
 .table-container {
   background: white;
   border-radius: 12px;
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
   overflow: hidden;
-  width: 100%;
-  max-width: 1200px;
 }
 
+/* TABLE STYLES */
 .words-table {
   width: 100%;
   border-collapse: collapse;
@@ -353,6 +351,7 @@ export default {
   vertical-align: middle;
 }
 
+/* ACTION BUTTONS */
 .btn-action {
   display: inline-flex;
   align-items: center;

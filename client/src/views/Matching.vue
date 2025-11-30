@@ -379,7 +379,6 @@ export default {
 }
 
 .matching-container {
-  width: 100vw;
   min-height: 100vh;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   padding: 20px;
@@ -390,6 +389,9 @@ export default {
 .matching-content {
   width: 100%;
   max-width: 1000px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .matching-content > h1 {
@@ -417,7 +419,6 @@ export default {
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
   margin-bottom: 30px;
   width: 100%;
-  max-width: 1000px;
 }
 
 .setup-section .form {
@@ -476,7 +477,6 @@ export default {
   border-radius: 12px;
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
   width: 100%;
-  max-width: 1000px;
 }
 
 .stat-item {
@@ -510,7 +510,6 @@ export default {
   border-radius: 12px;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
   width: 100%;
-  max-width: 1000px;
 }
 
 .language-headers {
@@ -597,7 +596,6 @@ export default {
   border-radius: 12px;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
   width: 100%;
-  max-width: 1000px;
 }
 
 .game-result h2 {

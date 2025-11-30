@@ -228,12 +228,12 @@
     }
 
     .quiz-page {
-        width: 100vw;
         min-height: 100vh;
         background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
-        padding: 40px 20px;
         display: flex;
         justify-content: center;
+        align-items: flex-start;
+        padding: 40px 20px;
     }
 
     .page-container {
