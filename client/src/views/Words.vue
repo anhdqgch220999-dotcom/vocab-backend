@@ -186,14 +186,24 @@ export default {
 </script>
 
 <style scoped>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 .words-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
+  width: 100%;
   min-height: 100vh;
   background: linear-gradient(135deg, #6ee7b7 0%, #2dd4bf 100%);
-  border-radius: 12px;
-  animation: slideUp 0.6s ease-out;
+  padding: 80px 20px 20px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 @keyframes slideUp {
@@ -213,6 +223,8 @@ export default {
   border-radius: 12px;
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
   margin-bottom: 25px;
+  width: 100%;
+  max-width: 1200px;
 }
 
 .words-header h1 {
@@ -237,6 +249,8 @@ export default {
   padding: 25px;
   border-radius: 12px;
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 1200px;
 }
 
 .lang-field {
@@ -293,6 +307,8 @@ export default {
   border-radius: 12px;
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
   overflow: hidden;
+  width: 100%;
+  max-width: 1200px;
 }
 
 .words-table {

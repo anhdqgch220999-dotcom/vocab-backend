@@ -151,37 +151,46 @@ export default {
 </script>
 
 <style scoped>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 .register-page {
-  width: 100vw;
+  width: 100%;
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
   padding: 20px;
+  position: fixed;
+  top: 0;
+  left: 0;
 }
 
 .register-card {
   background: white;
   border-radius: 12px;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-  padding: 40px;
-  max-width: 500px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  padding: 50px;
+  max-width: 480px;
   width: 100%;
 }
 
 .register-title {
   text-align: center;
   color: #1f2937;
-  margin-bottom: 30px;
-  font-size: 24px;
+  margin-bottom: 35px;
+  font-size: 26px;
   font-weight: 700;
 }
 
 .register-form {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 20px;
 }
 
 .form-row {
@@ -199,26 +208,27 @@ export default {
   font-size: 13px;
   font-weight: 600;
   color: #374151;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
 
 .form-input {
-  padding: 10px;
+  padding: 12px 14px;
   border: 2px solid #e5e7eb;
-  border-radius: 6px;
-  font-size: 13px;
+  border-radius: 8px;
+  font-size: 14px;
   outline: none;
   color: #1f2937;
   background: #f9fafb;
   transition: all 0.3s ease;
+  font-family: inherit;
 }
 
 .form-input:focus {
-  border-color: #f5576c;
+  border-color: #f093fb;
   background: white;
-  box-shadow: 0 0 0 3px rgba(245, 87, 108, 0.1);
+  box-shadow: 0 0 0 4px rgba(240, 147, 251, 0.1);
 }
 
 .form-input::placeholder {
@@ -226,23 +236,23 @@ export default {
 }
 
 .register-button {
-  padding: 12px;
+  padding: 13px;
   background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
   color: white;
   border: none;
-  border-radius: 6px;
-  font-size: 14px;
-  font-weight: 600;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 700;
   cursor: pointer;
   transition: all 0.3s ease;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
-  margin-top: 10px;
+  letter-spacing: 0.8px;
+  margin-top: 5px;
 }
 
 .register-button:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(245, 87, 108, 0.4);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(240, 147, 251, 0.4);
 }
 
 .register-button:disabled {
@@ -251,32 +261,44 @@ export default {
 }
 
 .error-message {
-  padding: 12px;
+  padding: 13px;
   background: #fee2e2;
   border: 1px solid #fca5a5;
-  border-radius: 6px;
+  border-radius: 8px;
   color: #991b1b;
   font-size: 13px;
   text-align: center;
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .register-footer {
   text-align: center;
-  margin-top: 20px;
+  margin-top: 25px;
   color: #6b7280;
   font-size: 14px;
 }
 
 .signin-link {
-  color: #f5576c;
+  color: #f093fb;
   text-decoration: none;
-  font-weight: 600;
+  font-weight: 700;
   transition: all 0.3s ease;
-  margin-left: 5px;
+  margin-left: 6px;
 }
 
 .signin-link:hover {
-  color: #f093fb;
+  color: #f5576c;
   text-decoration: underline;
 }
 </style>

@@ -103,30 +103,39 @@ export default {
 </script>
 
 <style scoped>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 .login-page {
-  width: 100vw;
+  width: 100%;
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   padding: 20px;
+  position: fixed;
+  top: 0;
+  left: 0;
 }
 
 .login-card {
   background: white;
   border-radius: 12px;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-  padding: 40px;
-  max-width: 450px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  padding: 50px;
+  max-width: 420px;
   width: 100%;
 }
 
 .login-title {
   text-align: center;
   color: #1f2937;
-  margin-bottom: 30px;
-  font-size: 24px;
+  margin-bottom: 35px;
+  font-size: 26px;
   font-weight: 700;
 }
 
@@ -151,7 +160,7 @@ export default {
 }
 
 .form-input {
-  padding: 12px;
+  padding: 12px 14px;
   border: 2px solid #e5e7eb;
   border-radius: 8px;
   font-size: 14px;
@@ -159,12 +168,13 @@ export default {
   color: #1f2937;
   background: #f9fafb;
   transition: all 0.3s ease;
+  font-family: inherit;
 }
 
 .form-input:focus {
   border-color: #667eea;
   background: white;
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
 }
 
 .form-input::placeholder {
@@ -172,22 +182,23 @@ export default {
 }
 
 .login-button {
-  padding: 12px;
+  padding: 13px;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
   border: none;
   border-radius: 8px;
-  font-size: 16px;
-  font-weight: 600;
+  font-size: 15px;
+  font-weight: 700;
   cursor: pointer;
   transition: all 0.3s ease;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.8px;
+  margin-top: 5px;
 }
 
 .login-button:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(102, 126, 234, 0.4);
 }
 
 .login-button:disabled {
@@ -196,18 +207,30 @@ export default {
 }
 
 .error-message {
-  padding: 12px;
+  padding: 13px;
   background: #fee2e2;
   border: 1px solid #fca5a5;
-  border-radius: 6px;
+  border-radius: 8px;
   color: #991b1b;
-  font-size: 14px;
+  font-size: 13px;
   text-align: center;
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .login-footer {
   text-align: center;
-  margin-top: 20px;
+  margin-top: 25px;
   color: #6b7280;
   font-size: 14px;
 }
@@ -215,9 +238,9 @@ export default {
 .signup-link {
   color: #667eea;
   text-decoration: none;
-  font-weight: 600;
+  font-weight: 700;
   transition: all 0.3s ease;
-  margin-left: 5px;
+  margin-left: 6px;
 }
 
 .signup-link:hover {

@@ -370,14 +370,31 @@ export default {
 </script>
 
 <style scoped>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 .matching-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
+  width: 100%;
   min-height: 100vh;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  border-radius: 12px;
-  animation: slideUp 0.6s ease-out;
+  padding: 80px 20px 20px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.matching-container > h1 {
+  color: white;
+  font-size: 32px;
+  margin-bottom: 30px;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 @keyframes slideUp {
@@ -396,7 +413,9 @@ export default {
   padding: 40px;
   border-radius: 12px;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-  margin-bottom: 0;
+  margin-bottom: 30px;
+  width: 100%;
+  max-width: 1000px;
 }
 
 .setup-section .form {
@@ -454,6 +473,8 @@ export default {
   background: white;
   border-radius: 12px;
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 1000px;
 }
 
 .stat-item {
@@ -486,6 +507,8 @@ export default {
   padding: 30px;
   border-radius: 12px;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 1000px;
 }
 
 .language-headers {
@@ -571,6 +594,8 @@ export default {
   background: white;
   border-radius: 12px;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 1000px;
 }
 
 .game-result h2 {

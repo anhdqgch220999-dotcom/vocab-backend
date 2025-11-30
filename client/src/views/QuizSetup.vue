@@ -221,16 +221,29 @@
     </script>
 
     <style scoped>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
     .quiz-page {
-        width: 100vw;
+        width: 100%;
         min-height: 100vh;
         background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
-        padding: 40px 20px;
+        padding: 80px 20px 20px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 
     .page-container {
+        width: 100%;
         max-width: 700px;
-        margin: 0 auto;
         background: white;
         border-radius: 12px;
         padding: 40px;
