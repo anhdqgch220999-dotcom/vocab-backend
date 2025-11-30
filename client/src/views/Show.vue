@@ -1,24 +1,40 @@
 <template>
-    <div>
-        <h1>Show Word</h1>
+    <div class="show-container">
+      <div class="show-header">
+        <h1>📖 Word Details</h1>
+        <p>View all translations for this word</p>
+      </div>
+
+      <div class="word-details-card">
         <div 
             v-for="lang in usedLanguages" 
             :key="lang.code"
-            class="ui labeled input fluid"
-            style="margin-bottom: 15px;"
+            class="translation-field"
         >
-            <div class="ui label">
+            <div class="field-label">
                 <i :class="`${lang.flag} flag`"></i>
-                {{ lang.name }}
+                <span>{{ lang.name }}</span>
             </div>
-            <input type="text" disabled :value="getTranslation(word, lang.code)" />
+            <input 
+              type="text" 
+              class="translation-input"
+              disabled 
+              :value="getTranslation(word, lang.code)" 
+            />
         </div>
         
-        <div>
-            <router-link :to="{ name: 'Edit', params: { id: route.params.id } }" class="ui yellow button">
-                Edit word
+        <div class="actions">
+            <router-link 
+              :to="{ name: 'Edit', params: { id: route.params.id } }" 
+              class="btn-action btn-edit"
+            >
+                <i class="edit icon"></i> Edit Word
+            </router-link>
+            <router-link to="/words" class="btn-action btn-back">
+                <i class="arrow left icon"></i> Back to Words
             </router-link>
         </div>
+      </div>
     </div>
 </template>
 
@@ -116,3 +132,154 @@ export default {
     }
 };
 </script>
+
+<style scoped>
+.show-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+  border-radius: 12px;
+  animation: slideUp 0.6s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.show-header {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  margin-bottom: 25px;
+}
+
+.show-header h1 {
+  font-size: 32px;
+  color: #1f2937;
+  margin: 0 0 10px 0;
+  font-weight: 700;
+}
+
+.show-header p {
+  font-size: 16px;
+  color: #6b7280;
+  margin: 0;
+}
+
+.word-details-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+  padding: 40px;
+}
+
+.translation-field {
+  margin-bottom: 25px;
+}
+
+.translation-field:last-of-type {
+  margin-bottom: 35px;
+}
+
+.field-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #1f2937;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 12px;
+}
+
+.field-label i {
+  font-size: 20px;
+}
+
+.translation-input {
+  width: 100%;
+  padding: 14px;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 16px;
+  color: #374151;
+  background: #f9fafb;
+  transition: all 0.3s ease;
+}
+
+.translation-input:focus {
+  outline: none;
+  border-color: #f59e0b;
+  background: white;
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1);
+}
+
+.translation-input:disabled {
+  background: #f3f4f6;
+  color: #6b7280;
+  cursor: not-allowed;
+  opacity: 0.8;
+}
+
+.actions {
+  display: flex;
+  gap: 15px;
+  margin-top: 35px;
+  padding-top: 25px;
+  border-top: 2px solid #e5e7eb;
+}
+
+.btn-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 14px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  border: none;
+  white-space: nowrap;
+  flex: 1;
+  justify-content: center;
+}
+
+.btn-action i {
+  font-size: 16px;
+}
+
+.btn-edit {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  color: white;
+}
+
+.btn-edit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(245, 158, 11, 0.4);
+}
+
+.btn-back {
+  background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);
+  color: white;
+}
+
+.btn-back:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(107, 114, 128, 0.4);
+}
+</style>
