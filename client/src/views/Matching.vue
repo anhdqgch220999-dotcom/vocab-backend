@@ -5,28 +5,28 @@
       
       <!-- Game Setup (before game starts) -->
       <div v-if="gameStatus === 'setup'" class="setup-section">
-        <div class="ui form">
-          <div class="two fields">
-            <div class="field">
+        <div class="setup-form">
+          <div class="form-row">
+            <div class="form-field">
               <label>Column 1 Language</label>
-              <select v-model="language1" class="ui dropdown compact">
+              <select v-model="language1">
                 <option v-for="lang in availableLanguages" :key="lang.code" :value="lang.code">
                   {{ lang.name }}
                 </option>
               </select>
             </div>
-            <div class="field">
+            <div class="form-field">
               <label>Column 2 Language</label>
-              <select v-model="language2" class="ui dropdown compact">
+              <select v-model="language2">
                 <option v-for="lang in availableLanguages" :key="lang.code" :value="lang.code">
                   {{ lang.name }}
                 </option>
               </select>
             </div>
           </div>
-          <div class="one field">
+          <div class="form-field">
             <label>Number of Words</label>
-            <select v-model.number="numWords" class="ui dropdown compact" style="width: 150px;">
+            <select v-model.number="numWords">
               <option value="4">4</option>
               <option value="5">5</option>
               <option value="6">6</option>
@@ -35,10 +35,12 @@
             </select>
           </div>
         </div>
-        <button @click="startGame" class="ui primary button" style="margin-top: 20px;">
-          Start Game
-        </button>
-        <router-link to="/words" class="ui button" style="margin-left: 10px;">Back to Words</router-link>
+        <div class="form-actions">
+          <button @click="startGame" class="btn-primary">
+            Start Game
+          </button>
+          <router-link to="/words" class="btn-secondary">Back to Words</router-link>
+        </div>
       </div>
 
       <!-- Game Stats -->
@@ -434,6 +436,102 @@ export default {
   width: 100%;
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.8);
+}
+
+.setup-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.form-field label {
+  font-size: 14px;
+  font-weight: 700;
+  color: #2dd4bf;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.form-field select {
+  padding: 12px 14px;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  background: white;
+  color: #1f2937;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.form-field select:hover {
+  border-color: #2dd4bf;
+  background: linear-gradient(135deg, #f8fdfc 0%, #f0fdfb 100%);
+}
+
+.form-field select:focus {
+  outline: none;
+  border-color: #2dd4bf;
+  box-shadow: 0 0 0 3px rgba(45, 212, 191, 0.15);
+}
+
+.form-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.btn-primary {
+  padding: 12px 28px;
+  background: linear-gradient(135deg, #2dd4bf 0%, #14b8a6 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(45, 212, 191, 0.3);
+}
+
+.btn-secondary {
+  padding: 12px 28px;
+  background: #e5e7eb;
+  color: #374151;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+}
+
+.btn-secondary:hover {
+  background: #d1d5db;
+  transform: translateY(-2px);
 }
 
 .setup-section .form {
